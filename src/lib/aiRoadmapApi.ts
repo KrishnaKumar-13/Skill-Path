@@ -1,6 +1,8 @@
 import { supabase } from '@/integrations/supabase/client';
 
-const API_BASE_URL = "http://localhost:8080/api/ai-roadmap";
+const API_BASE_URL =
+  (import.meta.env.VITE_API_BASE_URL || "http://localhost:8080") +
+  "/api/ai-roadmap";
 
 export interface AIRoadmapRequest {
   careerGoal: string;
