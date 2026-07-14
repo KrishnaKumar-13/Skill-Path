@@ -87,8 +87,8 @@ const Contact = () => {
               className="flex flex-col gap-6"
             >
               {[
-                { icon: Mail, title: "Email Us", detail: "support@skillpath.dev" },
-                { icon: MapPin, title: "Location", detail: "San Francisco, CA" },
+                { icon: Mail, title: "Email Us", detail: "venkatakrishnakumar941@gmail.com" },
+                { icon: MapPin, title: "Location", detail: "Telengana, Hyderabad" },
                 { icon: MessageCircle, title: "Live Chat", detail: "Available Mon-Fri, 9am-5pm PST" },
               ].map((item, i) => (
                 <div key={item.title} className="glass-card rounded-2xl p-6 flex items-start gap-4 transition-all duration-300 hover:shadow-glow">
