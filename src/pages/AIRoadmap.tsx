@@ -22,28 +22,42 @@ const AIRoadmap = () => {
   // We only show one roadmap at a time in this view, typically the latest one
   const activeRoadmap = roadmaps.length > 0 ? roadmaps[0] : null;
 
-  useEffect(() => {
-    if (user) {
-      fetchRoadmaps();
-    }
-  }, [user]);
+useEffect(() => {
+  console.log("USER:", user);
 
-  const fetchRoadmaps = async () => {
-    setIsFetching(true);
-    try {
-      const data = await getUserRoadmaps(user!.id);
-      setRoadmaps(data);
-    } catch (err: any) {
-      console.error(err);
-      toast({
-        title: "Failed to fetch roadmaps",
-        description: err.message,
-        variant: "destructive",
-      });
-    } finally {
-      setIsFetching(false);
-    }
-  };
+  if (user) {
+    console.log("Calling fetchRoadmaps()");
+    fetchRoadmaps();
+  }
+}, [user]);
+
+const fetchRoadmaps = async () => {
+  console.log("fetchRoadmaps START");
+
+  setIsFetching(true);
+
+  try {
+    console.log("User ID:", user?.id);
+
+    const data = await getUserRoadmaps(user!.id);
+
+    console.log("Roadmaps received:", data);
+
+    setRoadmaps(data);
+  } catch (err: any) {
+    console.error("fetchRoadmaps ERROR:", err);
+
+    toast({
+      title: "Failed to fetch roadmaps",
+      description: err.message,
+      variant: "destructive",
+    });
+  } finally {
+    console.log("fetchRoadmaps END");
+
+    setIsFetching(false);
+  }
+};
 
   const handleGenerate = async (request: AIRoadmapRequest) => {
     setIsGenerating(true);

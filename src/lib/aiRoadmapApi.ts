@@ -65,15 +65,31 @@ export const generateAIRoadmap = async (userId: string, request: AIRoadmapReques
   return response.json();
 };
 
-export const getUserRoadmaps = async (userId: string): Promise<AIRoadmapResponse[]> => {
+export const getUserRoadmaps = async (
+  userId: string
+): Promise<AIRoadmapResponse[]> => {
+
+  console.log("========== getUserRoadmaps ==========");
+  console.log("API_BASE_URL:", API_BASE_URL);
+  console.log("User ID:", userId);
+
   const headers = await getAuthHeaders();
+
+  console.log("Sending request to:");
+  console.log(`${API_BASE_URL}?userId=${userId}`);
+
   const response = await fetch(`${API_BASE_URL}?userId=${userId}`, {
     headers,
   });
 
+  console.log("Response Status:", response.status);
+
   if (!response.ok) {
     const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.error || `Request failed with status ${response.status}`);
+
+    throw new Error(
+      errorData?.error || `Request failed with status ${response.status}`
+    );
   }
 
   return response.json();
