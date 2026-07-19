@@ -42,11 +42,26 @@ export interface RoadmapMonth {
 }
 
 const getAuthHeaders = async () => {
-  const { data: { session } } = await supabase.auth.getSession();
-  return {
+  console.log("getAuthHeaders START");
+
+  const result = await supabase.auth.getSession();
+
+  console.log("Session result:", result);
+
+  const session = result.data.session;
+
+  console.log("Session:", session);
+
+  const headers = {
     "Content-Type": "application/json",
-    ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {})
+    ...(session?.access_token
+      ? { Authorization: `Bearer ${session.access_token}` }
+      : {}),
   };
+
+  console.log("Headers ready");
+
+  return headers;
 };
 
 export const generateAIRoadmap = async (userId: string, request: AIRoadmapRequest): Promise<AIRoadmapResponse> => {
